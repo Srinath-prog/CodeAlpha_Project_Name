@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+
+    .calculator {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    .display {
+      height: 60px;
+      background: #eee;
+      border-radius: 5px;
+      text-align: right;
+      padding: 10px;
+      font-size: 24px;
+      margin-bottom: 10px;
+      overflow-x: auto;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #f0f0f0;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #d0d0d0;
+    }
+
+    button.operator {
+      background: #007BFF;
+      color: white;
+    }
+
+    button.equal {
+      background: #28a745;
+      color: white;
+      grid-column: span 2;
+    }
+
+    button.clear {
+      background: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()" class="clear">C</button>
+      <button onclick="appendValue('/')">÷</button>
+      <button onclick="appendValue('*')">×</button>
+      <button onclick="appendValue('-')">−</button>
+
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('+')">+</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('.')">.</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="calculateResult()" class="equal">=</button>
+
+      <button onclick="appendValue('0')" style="grid-column: span 2;">0</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+    let currentInput = '';
+
+    function appendValue(value) {
+      if (display.innerText === '0') {
+        currentInput = value;
+      } else {
+        currentInput += value;
+      }
+      display.innerText = currentInput;
+    }
+
+    function clearDisplay() {
+      currentInput = '';
+      display.innerText = '0';
+    }
+
+    function calculateResult() {
+      try {
+        currentInput = eval(currentInput).toString();
+        display.innerText = currentInput;
+      } catch {
+        display.innerText = 'Error';
+        currentInput = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
